@@ -1,16 +1,22 @@
 <?php
 
-namespace Tests\Unit;
+it('that true is true', function (): void {
+    $true = true;
+    expect($true)->tobe(true);
+});
 
-use PHPUnit\Framework\TestCase;
+describe('suite tests of sum unit function', function (): void {
+    $sum = function (int $a, int $b): int {
+        return $a + $b;
+    };
 
-class ExampleTest extends TestCase
-{
-    /**
-     * A basic test example.
-     */
-    public function test_that_true_is_true(): void
-    {
-        $this->assertTrue(true);
-    }
-}
+    it('sum', function () use ($sum): void {
+        $result = $sum(1, 2);
+        expect($result)->toBe(3);
+    });
+
+    it('sum with negative numbers', function () use ($sum): void {
+        $result = $sum(-1, 2);
+        expect($result)->tobe(1);
+    });
+});

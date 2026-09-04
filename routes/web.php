@@ -1,3 +1,6 @@
 <?php
 
-Route::livewire('/', 'pages::users.index');
+use Illuminate\Support\Facades\Route;
+
+Route::view('/', 'welcome');
+Route::livewire('/users', 'pages::users.index');
