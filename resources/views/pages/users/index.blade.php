@@ -5,8 +5,7 @@ use Illuminate\Support\Collection;
 use Livewire\Component;
 use Mary\Traits\Toast;
 
-new class extends Component
-{
+new class extends Component {
     use Toast;
 
     public string $search = '';
@@ -31,12 +30,7 @@ new class extends Component
     // Table headers
     public function headers(): array
     {
-        return [
-            ['key' => 'id', 'label' => '#', 'class' => 'w-1'],
-            ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'],
-            ['key' => 'age', 'label' => 'Age', 'class' => 'w-20'],
-            ['key' => 'email', 'label' => 'E-mail', 'sortable' => false],
-        ];
+        return [['key' => 'id', 'label' => '#', 'class' => 'w-1'], ['key' => 'name', 'label' => 'Name', 'class' => 'w-64'], ['key' => 'age', 'label' => 'Age', 'class' => 'w-20'], ['key' => 'email', 'label' => 'E-mail', 'sortable' => false]];
     }
 
     /**
@@ -50,14 +44,14 @@ new class extends Component
         return User::all()
             ->sortBy([[...array_values($this->sortBy)]])
             ->when($this->search, function (Collection $collection) {
-                return $collection->filter(fn (array $item) => str($item['name'])->contains($this->search, true));
+                return $collection->filter(fn(array $item) => str($item['name'])->contains($this->search, true));
             });
     }
 
     public function with(): array
     {
         return [
-            'users'   => $this->users(),
+            'users' => $this->users(),
             'headers' => $this->headers(),
         ];
     }
@@ -78,29 +72,28 @@ new class extends Component
     <x-card shadow>
         <x-table :headers="$headers" :rows="$users" :sort-by="$sortBy">
             @scope('actions', $user)
-                <x-button
-                    icon="o-trash"
-                    wire:click="delete({{ $user['id'] }})"
-                    wire:confirm="Are you sure?"
-                    spinner
-                    class="btn-ghost btn-sm text-error"
-                />
+                <x-button icon="o-trash" wire:click="delete({{ $user['id'] }})" wire:confirm="Are you sure?" spinner
+                    class="btn-ghost btn-sm text-error" />
             @endscope
         </x-table>
     </x-card>
 
     <!-- FILTER DRAWER -->
     <x-drawer wire:model="drawer" title="Filters" right separator with-close-button class="lg:w-1/3">
-        <x-input
-            placeholder="Search..."
-            wire:model.live.debounce="search"
-            icon="o-magnifying-glass"
-            @keydown.enter="$wire.drawer = false"
-        />
+        <x-input placeholder="Search..." wire:model.live.debounce="search" icon="o-magnifying-glass"
+            @keydown.enter="$wire.drawer = false" />
 
         <x-slot:actions>
             <x-button label="Reset" icon="o-x-mark" wire:click="clear" spinner />
             <x-button label="Done" icon="o-check" class="btn-primary" @click="$wire.drawer = false" />
         </x-slot:actions>
     </x-drawer>
+
+    @php
+        $images = [
+            'https://images.unsplash.com/photo-1788123723785-27c1a8e765f2?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        ];
+    @endphp
+
+    <x-image-gallery :images="$images" class="h-32 rounded-box" />
 </div>
