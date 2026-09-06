@@ -32,6 +32,9 @@ class User extends Authenticatable
     }
 
     protected $casts = [
-        'library' => AsCollection::class,
+        'library'
+
+
+            => AsCollection::class,
     ];
 }

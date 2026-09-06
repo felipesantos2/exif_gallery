@@ -5,7 +5,8 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Mary\Traits\WithMediaSync;
 
-new class extends Component {
+new class extends Component
+{
     use WithFileUploads, WithMediaSync;
 
     // Temporary files
@@ -57,15 +58,23 @@ new class extends Component {
     @endphp
 
     <div>
-        <x-image-library wire:model="files" wire:library="library" :preview="$library" label="Adicione suas images"
-            hint="Max 100Kb" />
+        <x-image-library
+            wire:model="files"
+            wire:library="library"
+            :preview="$library"
+            label="Adicione suas images"
+            hint="Max 100Kb"
+        />
 
         <div class="flex w-full flex-wrap justify-center gap-2 p-4" x-data="{}">
             @forelse ($images as $image)
                 <x-card subtitle="Always triggers">
                     <div class="flex w-70 flex-col items-center gap-2 rounded bg-transparent">
-                        <img class="h-60 w-50 cursor-pointer rounded-lg object-contain ring ring-sky-200"
-                            src="images/{{ $image }}" alt="" />
+                        <img
+                            class="h-60 w-50 cursor-pointer rounded-lg object-contain ring ring-sky-200"
+                            src="images/{{ $image }}"
+                            alt=""
+                        />
                         {{-- <x-badge class="badge-soft h-auto w-50 cursor-pointer text-center text-xs"
                             value="{{ $image }}" /> --}}
                         <x-button label="Abrir" wire:click="save" />
