@@ -1,0 +1,1 @@
+sail art make:model -m MediaGallery -f -s -c
